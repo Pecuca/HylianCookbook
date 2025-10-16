@@ -1,13 +1,14 @@
-// src/vistas/VistaLista.jsx
+import Boton from "../components/Boton";
+
 function VistaLista({ recetas, onVer, onEditar, onEliminar }) {
   return (
     <ul>
       {recetas.map((receta) => (
         <li key={receta.id}>
           <h3>{receta.titulo}</h3>
-          <button onClick={() => onVer(receta)}>Ver Detalle</button>
-          <button onClick={() => onEditar(receta)}>Editar</button>
-          <button onClick={() => onEliminar(receta.id)}>Eliminar</button>
+          <Boton onClick={() => onVer(receta)}>Ver Detalle</Boton>
+          <Boton onClick={() => onEditar(receta)}>Editar</Boton>
+          <Boton onClick={() => onEliminar(receta.id)}>Eliminar</Boton>
         </li>
       ))}
     </ul>

@@ -1,4 +1,3 @@
-// src/vistas/VistaGrid.jsx
 import RecetaCard from "../RecetaCard";
 
 function VistaGrid({ recetas, onVer, onEditar, onEliminar }) {

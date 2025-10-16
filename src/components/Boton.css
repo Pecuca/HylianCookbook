@@ -1,0 +1,35 @@
+.boton {
+  padding: 6px 35px;
+  margin: 2px;
+  border-radius: 10px;
+  background-color: #181612;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.1s, transform 0.1s, border-color 0.1s;
+  color: #f9f8ec;
+  border: 5px solid rgba(0, 0, 0, 0);
+  box-sizing: border-box;
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+  font-family: FuenteCuerpo, sans-serif;
+}
+
+/* Hover */
+.boton:hover {
+  border: 5px solid #edd07f;
+}
+
+/* Click (active momentáneo) */
+.boton:active {
+  background-color: #bcbca9;
+  transform: scale(0.97);
+}
+
+/* Estado seleccionado (persistente) */
+.boton.activo {
+  background-color: #54b9e9;
+  border: 5px solid #edd07f;
+}

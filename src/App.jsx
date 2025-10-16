@@ -1,34 +1,42 @@
-import { useState, useEffect } from "react";
-import Auth from "./Auth.jsx";
-import Recetas from "./Recetas.jsx";
+import { useState } from "react";
+import Auth from "./Auth";
+import Recetas from "./Recetas";
+import Header from "./components/Header";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [usuario, setUsuario] = useState(localStorage.getItem("usuario") || "");
+  const [logueado, setLogueado] = useState(!!usuario);
 
-  useEffect(() => {
-    if (localStorage.getItem("isLoggedIn") === "true") {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  const handleLogin = (nombreUsuario) => {
+    setUsuario(nombreUsuario);
+    setLogueado(true);
+    localStorage.setItem("usuario", nombreUsuario);
+  };
 
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
+    setUsuario("");
+    setLogueado(false);
+    localStorage.removeItem("usuario");
   };
 
   return (
-    <div>
-      {isLoggedIn ? (
+  <>
+    {/* Fondo con blur */}
+    <div className="blur-overlay" />
+
+    {/* Contenido principal */}
+    <div className="contenido">
+      {logueado ? (
         <>
-          <h1>🍲 Bienvenido a tu App de Recetas</h1>
-          <button onClick={handleLogout}>Cerrar sesión</button>
+          <Header usuario={usuario} onLogout={handleLogout} />
           <Recetas />
         </>
       ) : (
-        <Auth onLogin={() => setIsLoggedIn(true)} />
+        <Auth onLogin={handleLogin} />
       )}
     </div>
-  );
+  </>
+);
 }
 
 export default App;

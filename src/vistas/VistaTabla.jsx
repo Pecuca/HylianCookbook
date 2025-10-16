@@ -32,12 +32,12 @@ const styles = {
     borderCollapse: "collapse",
   },
   th: {
-    border: "1px solid #ccc",
+    //border: "1px solid #ccc",
     padding: "8px",
     background: "#f2f2f2",
   },
   td: {
-    border: "1px solid #ccc",
+    //border: "1px solid #ccc",
     padding: "8px",
   },
 };
