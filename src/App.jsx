@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Auth from "./Auth";
 import Recetas from "./Recetas";
-import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const [usuario, setUsuario] = useState(localStorage.getItem("usuario") || "");
@@ -25,10 +25,10 @@ function App() {
     <div className="blur-overlay" />
 
     {/* Contenido principal */}
-    <div className="contenido">
+    <div className="contenido" style={{ paddingRight: "250px" }}>
       {logueado ? (
         <>
-          <Header usuario={usuario} onLogout={handleLogout} />
+          <Sidebar usuario={usuario} onLogout={handleLogout} />
           <Recetas />
         </>
       ) : (
