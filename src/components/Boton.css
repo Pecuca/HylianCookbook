@@ -33,3 +33,12 @@
   background-color: #54b9e9;
   border: 5px solid #edd07f;
 }
+
+/* Buttons used inside Receta cards */
+.boton.card-btn {
+  width: 100%;
+  padding: 8px 12px;
+  margin: 6px 0;
+  border-radius: 6px;
+  text-align: center;
+}

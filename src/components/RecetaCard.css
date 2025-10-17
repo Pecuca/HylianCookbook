@@ -1,0 +1,45 @@
+/* Styles for RecetaCard component */
+.receta-card {
+  border-radius: 8px;
+  padding: 12px;
+  margin: 8px;
+  width: 220px;
+  background: rgba(22, 25, 26, 0.8);
+  border: 1px solid #4f5455;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.receta-imagen {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.receta-titulo {
+  font-size: 1.1rem;
+  margin: 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fefddf;
+}
+
+.receta-texto {
+  font-size: 0.9rem;
+  max-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: #fefddf;
+}
+
+/* ensure card buttons stack and fill width */
+.receta-card .card-btn {
+  margin-top: 8px;
+}
