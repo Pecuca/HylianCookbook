@@ -110,23 +110,23 @@ function Recetas() {
 
       {/* Barra inferior fija */}
       <div className="footer-bar">
-        <span>Alex</span>
+        <span>Alex Hernandez l Frameworks 2025C</span>
       </div>
 
       {/* Popup */}
       {mostrarPopup && (
         <div className="popup-overlay" onClick={() => setMostrarPopup(false)}>
           <div className="popup" onClick={(e) => e.stopPropagation()}>
-            <h2>{editId ? "Editar Receta" : "Agregar Receta"}</h2>
+            <h2>{editId ? "Edit Recipe" : "Add Recipe"}</h2>
             <form onSubmit={handleAddOrEdit}>
-              <input type="text" placeholder="Título" value={titulo} onChange={(e) => setTitulo(e.target.value)} required />
-              <textarea placeholder="Ingredientes" value={ingredientes} onChange={(e) => setIngredientes(e.target.value)} required />
-              <textarea placeholder="Pasos" value={pasos} onChange={(e) => setPasos(e.target.value)} required />
-              <input type="text" placeholder="Comentarios" value={comentarios} onChange={(e) => setComentarios(e.target.value)} />
-              <input type="text" placeholder="URL de la imagen" value={imagen} onChange={(e) => setImagen(e.target.value)} required />
+              <input type="text" placeholder="Title" value={titulo} onChange={(e) => setTitulo(e.target.value)} required />
+              <textarea placeholder="Ingredients" value={ingredientes} onChange={(e) => setIngredientes(e.target.value)} required />
+              <textarea placeholder="Steps" value={pasos} onChange={(e) => setPasos(e.target.value)} required />
+              <input type="text" placeholder="Comments" value={comentarios} onChange={(e) => setComentarios(e.target.value)} />
+              <input type="text" placeholder="Image URL" value={imagen} onChange={(e) => setImagen(e.target.value)} required />
               <div className="form-actions">
-                <button type="submit">{editId ? "Guardar Cambios" : "Agregar Receta"}</button>
-                <button type="button" onClick={() => setMostrarPopup(false)}>Cancelar</button>
+                <button type="submit">{editId ? "Save Changes" : "Add Recipe"}</button>
+                <button type="button" onClick={() => setMostrarPopup(false)}>Cancel</button>
               </div>
             </form>
           </div>
