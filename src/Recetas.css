@@ -1,0 +1,150 @@
+/* src/Recetas.css */
+
+/* Variables de layout para mantener coherencia */
+:root {
+  --sidebar-width: 250px;        /* ancho de la sidebar derecha */
+  --bar-top-offset: 80px;        /* distancia desde el borde superior */
+  --bar-horizontal-gap: 24px;    /* separación de los lados */
+  --bar-height: 64px;            /* altura de la barra de visualización */
+  --footer-height: 28px;         /* altura de la barra inferior */
+  --accent-border: #edd07f;      /* borde dorado */
+  --sidebar-bg: #fefce5;         /* color de sidebar y barras */
+  --btn-bg: #181612;             /* color de los botones y box de recetas */
+  --text-light: #f9f8ec;         /* texto claro */
+  --text-dark: #141b23;          /* texto oscuro */
+}
+
+.recetas-layout {
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Barra fija de tipos de visualización separada de los bordes */
+.visualizacion-bar {
+  position: fixed;
+  top: var(--bar-top-offset);
+  left: var(--bar-horizontal-gap);
+  right: calc(var(--sidebar-width) + var(--bar-horizontal-gap));
+  height: var(--bar-height);
+  background-color: var(--sidebar-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  /* layout helpers */
+  justify-content: space-between;
+}
+
+.visualizacion-left { display: flex; gap: 8px; align-items: center; }
+.visualizacion-right { display: flex; align-items: center; }
+.visualizacion-spacer { flex: 1 1 auto; }
+
+/* Box de recetas con fondo de color de los botones */
+.recetas-box {
+  background-color: var(--btn-bg);
+  color: var(--text-light);
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  padding: 16px;
+  /* align with top bar and sidebar spacing */
+  position: fixed;
+  top: calc(var(--bar-top-offset) + var(--bar-height) + 16px);
+  left: var(--bar-horizontal-gap);
+  right: calc(var(--sidebar-width) + var(--bar-horizontal-gap));
+  bottom: calc(var(--footer-height) + 16px);
+  /* ensure the box itself is fixed; the inner list scrolls */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The inner area that should scroll when content overflows */
+.recetas-lista {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding-right: 8px; /* small padding to avoid content touching scrollbar */
+}
+
+/* Barra inferior fija con tu nombre */
+.footer-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--footer-height);
+  background-color: var(--sidebar-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+}
+
+.agregar-btn { margin-left: 8px; padding: 4px 10px; font-weight: 700; }
+
+/* Popup */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.popup {
+  background-color: var(--sidebar-bg);
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid var(--accent-border);
+  width: 340px;
+  box-sizing: border-box;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: var(--text-dark);
+}
+
+.popup form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.popup input,
+.popup textarea {
+  padding: 6px;
+  border: 1px solid var(--accent-border);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--text-dark);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.popup button {
+  padding: 6px 12px;
+  border: 1px solid var(--accent-border);
+  border-radius: 4px;
+  background-color: var(--accent-border);
+  color: #181612;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.popup button:hover {
+  background-color: #ecdaa6;
+}

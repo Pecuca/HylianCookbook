@@ -1,12 +1,11 @@
 import { useState } from "react";
 import './Boton.css';
 
-function Boton({ children, onClick, type = "button", activo = false }) {
+function Boton({ children, onClick, type = "button", activo = false, className = "", ...rest }) {
   const [hover, setHover] = useState(false);
   const [active, setActive] = useState(false);
 
-
-  const classNames = `boton ${activo ? 'activo' : ''}`;
+  const classNames = `boton ${activo ? 'activo' : ''} ${className}`.trim();
 
   return (
     <button
@@ -20,6 +19,7 @@ function Boton({ children, onClick, type = "button", activo = false }) {
       }}
       onMouseDown={() => setActive(true)}
       onMouseUp={() => setActive(false)}
+      {...rest}
     >
       {children}
     </button>
