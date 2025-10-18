@@ -17,24 +17,29 @@
   font-family: FuenteCuerpo, sans-serif;
 }
 
-/* Hover */
+.boton:disabled,
+.boton[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  border: 5px solid rgba(0,0,0,0);
+}
+
+
 .boton:hover {
   border: 5px solid #edd07f;
 }
 
-/* Click (active momentáneo) */
 .boton:active {
   background-color: #bcbca9;
   transform: scale(0.97);
 }
 
-/* Estado seleccionado (persistente) */
 .boton.activo {
   background-color: #54b9e9;
   border: 5px solid #edd07f;
 }
 
-/* Buttons used inside Receta cards */
 .boton.card-btn {
   width: 100%;
   padding: 8px 12px;

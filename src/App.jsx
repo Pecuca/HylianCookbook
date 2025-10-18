@@ -6,6 +6,9 @@ import Sidebar from "./components/Sidebar";
 function App() {
   const [usuario, setUsuario] = useState(localStorage.getItem("usuario") || "");
   const [logueado, setLogueado] = useState(!!usuario);
+  // lift view selection and popup state so Sidebar can control them
+  const [vista, setVista] = useState("lista");
+  const [mostrarPopup, setMostrarPopup] = useState(false);
 
   const handleLogin = (nombreUsuario) => {
     setUsuario(nombreUsuario);
@@ -28,8 +31,8 @@ function App() {
     <div className="contenido" style={{ paddingRight: "250px" }}>
       {logueado ? (
         <>
-          <Sidebar usuario={usuario} onLogout={handleLogout} />
-          <Recetas />
+          <Sidebar usuario={usuario} onLogout={handleLogout} vista={vista} setVista={setVista} setMostrarPopup={setMostrarPopup} />
+          <Recetas vista={vista} setVista={setVista} mostrarPopup={mostrarPopup} setMostrarPopup={setMostrarPopup} />
         </>
       ) : (
         <Auth onLogin={handleLogin} />

@@ -36,7 +36,18 @@
 
 .visualizacion-left { display: flex; gap: 8px; align-items: center; }
 .visualizacion-right { display: flex; align-items: center; }
+.visualizacion-center { display: flex; align-items: center; justify-content: center; flex: 1 1 auto; }
 .visualizacion-spacer { flex: 1 1 auto; }
+
+.visualizacion-bar-placeholder {
+  position: fixed;
+  top: calc(var(--bar-top-offset) + 6px);
+  left: calc(var(--bar-horizontal-gap) + 8px);
+  color: #141b23;
+  background: transparent;
+  font-weight: 700;
+  z-index: 1400;
+}
 
 /* Box de recetas con fondo de color de los botones */
 .recetas-box {
@@ -79,7 +90,6 @@
   padding-left: 16px;
 }
 
-.agregar-btn { margin-left: 8px; padding: 4px 10px; font-weight: 700; }
 
 /* Popup */
 .popup-overlay {
@@ -139,4 +149,159 @@
 
 .popup button:hover {
   background-color: #ecdaa6;
+}
+
+.carrusel-wrap { position: relative; overflow: hidden; }
+
+.carrusel-wrap .carrusel-slider { margin: 0; }
+
+.carousel-controls { 
+  display: flex; 
+  gap: 8px;
+  justify-content: center;
+  margin-top: 30px;
+
+}
+
+.slick-slide-inner {
+  margin-left: 60px;
+}
+
+.carousel-btn { 
+  width: 40px; 
+  height: 40px; 
+  border-radius: 8px; 
+  background: rgba(0,0,0,0.45); 
+  color: #fefddf; 
+  border: none; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer; 
+}
+
+.carousel-btn:hover { 
+  background: rgba(0,0,0,0.6); 
+}
+
+.slick-prev, .slick-next { 
+  display: none !important; 
+}
+
+.carrusel-wrap .slick-track, .carrusel-wrap .slick-slide { z-index: 1; }
+
+.recetas-lista::-webkit-scrollbar, .recetas-box::-webkit-scrollbar, .grid-wrap::-webkit-scrollbar { width: 10px; }
+.recetas-lista::-webkit-scrollbar-track, .recetas-box::-webkit-scrollbar-track, .grid-wrap::-webkit-scrollbar-track { background: rgba(0,0,0,0.08); border-radius: 6px; }
+.recetas-lista::-webkit-scrollbar-thumb, .recetas-box::-webkit-scrollbar-thumb, .grid-wrap::-webkit-scrollbar-thumb { background: var(--accent-border); border-radius: 6px; border: 2px solid rgba(0,0,0,0); background-clip: padding-box; }
+
+.recetas-lista { scrollbar-width: thin; scrollbar-color: var(--accent-border) rgba(0,0,0,0.1); }
+
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4000; 
+}
+
+.popup-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 3, 0.4); 
+  backdrop-filter: blur(6px);
+}
+.popup {
+  position: relative; 
+  z-index: 4001;
+}
+
+.carrusel-wrap { overflow: hidden; }
+
+.popup, .popup * { font-family: FuenteCuerpo, sans-serif; }
+.popup textarea { resize: none; }
+.popup label { display: block; font-weight: 600; margin-bottom: 4px; }
+
+.table-box {
+  border: 1px solid var(--accent-border);
+  background: rgba(22,25,26,0.5);
+  padding: 12px;
+  border-radius: 8px;
+}
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fefddf;
+}
+.styled-table th, .styled-table td {
+  padding: 8px;
+  text-align: left;
+}
+.styled-table thead th { background: rgba(0,0,0,0.2); }
+.table-actions { display: flex; gap: 8px; }
+
+.lista-vistas { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.list-item-box {
+  border: 1px solid var(--accent-border);
+  background: rgba(22,25,26,0.5);
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lista-vistas h3 {
+  color: #f9f8ec; /* match button text color */
+  margin: 0;
+}
+.list-item-actions { display: flex; gap: 8px; }
+
+/* Detail modal styled to match receta-card */
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+  z-index: 3000;
+}
+.detail-modal {
+  width: 90%;
+  max-width: 640px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: rgba(22,25,26,1); /* make opaque */
+  border: 1px solid #4f5455;
+  padding: 16px;
+  border-radius: 8px;
+  color: #fefddf;
+  box-sizing: border-box;
+}
+.detail-title { margin-top: 0; color: #fefddf; font-size: 1.05rem; }
+.detail-image {
+  width: 100%;
+  max-height: 260px; /* smaller to reduce scroll */
+  object-fit: contain; /* avoid crop */
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.detail-modal p { font-size: 0.92rem; margin: 6px 0; }
+.detail-actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+/* Scrollbar for detail modal matches receta-list scrollbars */
+.detail-modal::-webkit-scrollbar { width: 10px; }
+.detail-modal::-webkit-scrollbar-track { background: rgba(0,0,0,0.08); border-radius: 6px; }
+.detail-modal::-webkit-scrollbar-thumb { background: var(--accent-border); border-radius: 6px; border: 2px solid rgba(0,0,0,0); background-clip: padding-box; }
+.detail-modal { scrollbar-width: thin; scrollbar-color: var(--accent-border) rgba(0,0,0,0.1); }
+
+.grid-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  overflow: auto;
+  padding-bottom: 8px;
+  margin-left: 50px;
 }

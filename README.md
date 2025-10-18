@@ -1,16 +1,45 @@
-# React + Vite
+# Hylian Cookbook (RecipeBookbook)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a small React + Vite project used for the Frameworks course (2025C).
+It showcases a simple recipe manager with multiple presentation modes (list,
+grid, carousel, table), a small auth flow, and CRUD operations stored in
+component state (no backend).
 
-Currently, two official plugins are available:
+Main files
+- `src/Recetas.jsx`: main page containing recipes and view switching
+- `src/components/RecetaCard.jsx`: card used in grid and carousel views
+- `src/RecetaDetalle.jsx`: recipe detail modal
+- `src/components/Sidebar.jsx`: left-side navigation and controls
+- `src/components/Boton.jsx`: shared button component
+- `src/vistas/*`: different presentation views (List, Grid, Carousel, Table)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+How to run
+1. Install dependencies:
 
-## React Compiler
+```powershell
+npm install
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+2. Start dev server (Vite):
 
-## Expanding the ESLint configuration
+```powershell
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3. Open the URL printed by Vite (usually http://localhost:5173).
+
+Notes for maintainers
+- The project uses plain CSS files per-component located under `src/components`.
+- UI copy has been standardized to English across views.
+- The auth module is a demo: it stores credentials in `localStorage` and is
+  not secure. Replace with a real auth backend for production.
+
+Customization tips
+- To change the appearance of recipe cards, edit `src/components/RecetaCard.css`.
+- To adjust the carousel behavior, check `src/vistas/VistaCarrusel.jsx` (it uses react-slick).
+
+Contributing
+- Open a PR against `main` with a clear description of UI/behavior changes.
+
+License
+- This repository is for instructional/demo purposes.

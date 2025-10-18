@@ -2,7 +2,7 @@ import RecetaCard from "../RecetaCard";
 
 function VistaGrid({ recetas, onVer, onEditar, onEliminar }) {
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <div className="grid-wrap">
       {recetas.map((receta) => (
         <RecetaCard
           key={receta.id}

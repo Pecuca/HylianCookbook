@@ -1,10 +1,10 @@
-/* Styles for RecetaCard component */
 .receta-card {
   border-radius: 8px;
-  padding: 12px;
-  margin: 8px;
-  width: 220px;
-  background: rgba(22, 25, 26, 0.8);
+  padding: 10px;
+  margin: 6px;
+  width: 180px; /* smaller cards */
+  height: 380px; /* scaled down proportionally */
+  background: rgba(22, 25, 26, 0.9);
   border: 1px solid #4f5455;
   overflow: hidden;
   display: flex;
@@ -13,33 +13,75 @@
 
 .receta-imagen {
   width: 100%;
-  height: 200px;
+  height: 130px; /* slightly taller but scaled for smaller card */
   object-fit: cover;
   border-radius: 6px;
 }
+.card-media { flex: 0 0 auto; }
+.card-media { /* reserve the media area height */
+  flex: 0 0 130px;
+  margin-bottom: 6px; /* separate image from body for clarity */
+}
+.receta-imagen {
+  display: block;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+  min-height: 0; /* allow proper clamping inside flex */
+  overflow: hidden; /* prevent body from expanding the card */
+  padding-right: 2px; /* small breathing room for clamped lines */
+}
 
 .receta-titulo {
-  font-size: 1.1rem;
-  margin: 8px 0;
-  white-space: nowrap;
+  font-size: 0.98rem;
+  margin: 6px 0 4px 0;
+  color: #fefddf;
+  /* force a single visible line */
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #fefddf;
+}
+.receta-titulo {
+  margin: 0;
 }
 
 .receta-texto {
-  font-size: 0.9rem;
-  max-height: 40px;
+  font-size: 0.86rem;
+  color: #fefddf;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  /* show at most 3 lines of ingredients/summary inside the body on smaller cards */
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
-  color: #fefddf;
 }
 
-/* ensure card buttons stack and fill width */
 .receta-card .card-btn {
   margin-top: 8px;
+}
+.card-actions {
+  /* reserve enough area so the .boton padding + borders aren't cut */
+  flex: 0 0 92px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* minimal gap between buttons */
+  margin-top: 6px;
+  padding-bottom: 4px;
+}
+.card-actions .card-btn {
+  width: 100%;
+  /* allow the button to size itself according to its padding/border */
+  height: auto;
+  flex: 0 0 auto;
+  margin: 2px 0; /* compact vertical margins */
+  padding: 5px 8px; /* slightly reduced padding for smaller cards */
 }

@@ -7,12 +7,23 @@ import VistaTabla from "./vistas/VistaTabla";
 import Boton from "./components/Boton";
 import "./Recetas.css";
 
-function Recetas() {
+/*
+  Recetas: Main page that hosts the recipe collection and allows switching
+  between multiple presentation modes (list, grid, carousel, table).
+
+  Responsibilities:
+  - maintain local recipes state when not lifted
+  - provide CRUD handlers to child views
+  - coordinate popup show/hide and the recipe detail modal
+
+  Props (optional lifted state):
+  - vista, setVista: control which view is active
+  - mostrarPopup, setMostrarPopup: control whether the add/edit popup is visible
+*/
+function Recetas({ vista: vistaProp, setVista: setVistaProp, mostrarPopup: mostrarPopupProp, setMostrarPopup: setMostrarPopupProp }) {
   const [recetas, setRecetas] = useState([
     {id: 1, titulo: "Deep-Fried Bird Roast", ingredientes: "Whole Bird, Hylian Salt", pasos: "Deep-fry whole bird, Season with salt.", comentarios: "A deep-fried whole bird of the highest grade.", imagen: "https://img.game8.co/3713774/edb659a7d91bb4bbe5ed9e08a79ff207.png/show"},
     {id: 2, titulo: "Copious Simmered Fruit", ingredientes: "Apples, Shock fruits, Ice Fruits, Spicy Peppers, Fire Fruits", pasos: "Put Fruits in a pot, add water, and simmer.", comentarios: "The flavours of the various fruits exist in perfect harmony", imagen: "https://img.game8.co/3709131/7ca0b987aa104496e6057cbaf9cc0602.png/show"},
-    {id: 1, titulo: "Deep-Fried Bird Roast", ingredientes: "Whole Bird, Hylian Salt", pasos: "Deep-fry whole bird, Season with salt.", comentarios: "A deep-fried whole bird of the highest grade. It's a standard item in any celebratory feast.", imagen: "https://img.game8.co/3713774/edb659a7d91bb4bbe5ed9e08a79ff207.png/show"},
-    {id: 2, titulo: "Copious Simmered Fruit", ingredientes: "Apples, Shock fruits, Ice Fruits, Spicy Peppers, Fire Fruits", pasos: "Put Fruits in a pot, add water, and simmer.", comentarios: "The flavours of the various fruits in this simmered dish exist in perfect harmony", imagen: "https://img.game8.co/3709131/7ca0b987aa104496e6057cbaf9cc0602.png/show"},
     {id: 3, titulo: "Seared Gourmet Steak", ingredientes: "Gourmet Meat", pasos: "Put over an open flame like a campfire and rotate until done.", comentarios: "The highest quality gourmet meat, just kissed by an open flame. No additional seasoning have been added, which lets the natural flavor of the meat really shine.", imagen: "https://img.game8.co/3691878/481e41dbfd6cfd8f108a5879fff40da4.png/show"},
     {id: 4, titulo: "Egg Pudding", ingredientes: "Bird Egg, Fresh Milk, Cane Sugar", pasos: "Cook eggs and milk in a special mold.", comentarios: "Made by cooking eggs and milk in a special mold, its soft texture melts in your mouth.", imagen: "https://img.game8.co/3707519/1147fd81be4ee0fdc0e6ed5d559dd862.png/show"},
     {id: 5, titulo: "Cheesecake", ingredientes: "Hateno Cheese, Tabantha Wheat, Cane Sugar, Goat Butter", pasos: "Mix all ingredients and bake.", comentarios: "A rich, moist, flavorful dessert with a Hateno cheese base.", imagen: "https://img.game8.co/3714009/c9c476834ca04ec20b064a0b924c9726.png/show"},
@@ -29,8 +40,13 @@ function Recetas() {
   const [imagen, setImagen] = useState("");
   const [editId, setEditId] = useState(null);
   const [recetaSeleccionada, setRecetaSeleccionada] = useState(null);
-  const [vista, setVista] = useState("lista");
-  const [mostrarPopup, setMostrarPopup] = useState(false);
+  const [vistaLocal, setVistaLocal] = useState("lista");
+  const [mostrarPopupLocal, setMostrarPopupLocal] = useState(false);
+
+  const vista = vistaProp !== undefined ? vistaProp : vistaLocal;
+  const setVista = setVistaProp !== undefined ? setVistaProp : setVistaLocal;
+  const mostrarPopup = mostrarPopupProp !== undefined ? mostrarPopupProp : mostrarPopupLocal;
+  const setMostrarPopup = setMostrarPopupProp !== undefined ? setMostrarPopupProp : setMostrarPopupLocal;
 
   const handleAddOrEdit = (e) => {
     e.preventDefault();
@@ -74,20 +90,23 @@ function Recetas() {
     setMostrarPopup(true);
   };
 
+  const clearAndClose = () => {
+    setTitulo("");
+    setIngredientes("");
+    setPasos("");
+    setComentarios("");
+    setImagen("");
+    setEditId(null);
+    setMostrarPopup(false);
+  };
+
   return (
     <div className="recetas-layout">
-      {/* Barra fija dentro del contenedor */}
+      {/* Fixed bar showing current view */}
       <div className="visualizacion-bar">
-        <div className="visualizacion-left">
-          <Boton onClick={() => setVista("lista")} activo={vista === "lista"}>Lista</Boton>
-          <Boton onClick={() => setVista("grid")} activo={vista === "grid"}>Grid</Boton>
-          <Boton onClick={() => setVista("carrusel")} activo={vista === "carrusel"}>Carrusel</Boton>
-          <Boton onClick={() => setVista("tabla")} activo={vista === "tabla"}>Tabla</Boton>
-        </div>
-        <div className="visualizacion-spacer" />
-        <div className="visualizacion-right">
-          <Boton className="agregar-btn" onClick={() => setMostrarPopup(true)} aria-label="Agregar receta">+</Boton>
-        </div>
+        <div className="visualizacion-left" />
+        <div className="visualizacion-center" />
+        <div className="visualizacion-right" />
       </div>
 
       {/* Área de recetas que conecta con la barra superior e inferior */}
@@ -108,25 +127,36 @@ function Recetas() {
         </div>
       </div>
 
-      {/* Barra inferior fija */}
+      {/* Fixed footer */}
       <div className="footer-bar">
-        <span>Alex Hernandez l Frameworks 2025C</span>
+        <span>Alex Hernandez | Frameworks 2025C</span>
       </div>
 
       {/* Popup */}
       {mostrarPopup && (
-        <div className="popup-overlay" onClick={() => setMostrarPopup(false)}>
+        <div className="popup-overlay" onClick={clearAndClose}>
           <div className="popup" onClick={(e) => e.stopPropagation()}>
             <h2>{editId ? "Edit Recipe" : "Add Recipe"}</h2>
             <form onSubmit={handleAddOrEdit}>
-              <input type="text" placeholder="Title" value={titulo} onChange={(e) => setTitulo(e.target.value)} required />
-              <textarea placeholder="Ingredients" value={ingredientes} onChange={(e) => setIngredientes(e.target.value)} required />
-              <textarea placeholder="Steps" value={pasos} onChange={(e) => setPasos(e.target.value)} required />
-              <input type="text" placeholder="Comments" value={comentarios} onChange={(e) => setComentarios(e.target.value)} />
-              <input type="text" placeholder="Image URL" value={imagen} onChange={(e) => setImagen(e.target.value)} required />
+
+              <label htmlFor="titulo">Title</label>
+              <input id="titulo" type="text" placeholder="Title" value={titulo} onChange={(e) => setTitulo(e.target.value)} required />
+
+              <label htmlFor="ingredientes">Ingredients</label>
+              <textarea id="ingredientes" placeholder="Ingredients" value={ingredientes} onChange={(e) => setIngredientes(e.target.value)} required />
+
+              <label htmlFor="pasos">Steps</label>
+              <textarea id="pasos" placeholder="Steps" value={pasos} onChange={(e) => setPasos(e.target.value)} required />
+
+              <label htmlFor="comentarios">Comments</label>
+              <input id="comentarios" type="text" placeholder="Comments" value={comentarios} onChange={(e) => setComentarios(e.target.value)} />
+
+              <label htmlFor="imagen">Image (URL)</label>
+              <input id="imagen" type="text" placeholder="Image URL" value={imagen} onChange={(e) => setImagen(e.target.value)} required />
+
               <div className="form-actions">
                 <button type="submit">{editId ? "Save Changes" : "Add Recipe"}</button>
-                <button type="button" onClick={() => setMostrarPopup(false)}>Cancel</button>
+                <button type="button" onClick={clearAndClose}>Cancel</button>
               </div>
             </form>
           </div>
